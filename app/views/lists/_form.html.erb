@@ -1,0 +1,45 @@
+<div class="form container">
+<%= form_for @list do |f| %>
+<div class="form-group"> 
+  <%= f.label :title, "Title" %>
+  <%= f.text_field :title,class:"form-control" %>
+</div>
+
+<div class="form-group">
+  <%= f.label :date, "Deadline" %>
+  <%= f.text_field :date ,class:"form-control"%>
+</div>
+
+<div class="form-group">
+  <%= f.label :description, "Description" %>
+  <%= f.text_area :description,class:"form-control" %>
+</div>
+
+<div class="form-group">
+  <%= f.submit %>
+</div>
+
+<%= link_to lists_path do %>
+    <button type="button" class="btn btn-default btn-sm">
+      <span class="glyphicon glyphicon-file"></span> Back to the index 
+    </button>
+<%end %>
+
+<% end %>
+
+
+
+</div>
+
+
+
+
+<% if @list.errors.present? %>
+  <ul>
+    <% @list.errors.each do |error, message| %>
+      <li> <%= "#{error.capitalize}  #{message}" %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+

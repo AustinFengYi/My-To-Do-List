@@ -1,0 +1,71 @@
+<style>
+	.add{text-align: center;}
+	h4{color: gray;}
+	h2,h4{text-align: center; margin-bottom: 20px;}
+
+</style>
+
+<h2>任務清單</h2>
+<h4>每天都有做努力,你會看到自己的改變,那怕只是成長一點點</h4>
+<table class="table table-striped">
+    <tr>
+        <td>任務狀態</td>
+        <td>任務</td>
+        <td>任務期限</td>
+        <td>任務內容</td>
+        <td>任務編輯</td>
+        <td>任務刪除</td>
+    </tr>
+
+    <% @lists.each do |list| %>
+      <tr>
+        <% if list.completed %>
+          <td>
+            <%= link_to complete_list_path(list), method: :patch do %>
+              <span class="glyphicon glyphicon-check"></span>
+            <% end %>
+          </td>
+        <% else %>
+          <td>
+            <%= link_to complete_list_path(list), method: :patch do %>
+              <span class="glyphicon glyphicon-unchecked"></span>
+            <% end %>
+          </td>
+        <% end %>
+
+        <td><%= list.title %></td>
+        <td><%= list.date %></td>
+        <td><%= list.description %></td>
+        <td>
+          <%= link_to edit_list_path(list) do %>
+             <button type="button" class="btn btn-default btn-sm">
+             <span class="glyphicon glyphicon-edit"></span> Edit
+             </button>
+             <%end%>
+        </td>
+        
+        <% if Time.now.to_date <= list.date %>
+        <td>  
+        <%= link_to list_path(list), method: :delete, data:{ confirm: "Are you sure?" } do%> 
+           <button type="button" class="btn btn-default btn-sm">
+           <span class="glyphicon glyphicon-trash"></span> Trash 
+           </button>
+           <%end%>    
+        </td>
+
+        <%else%>
+        <td>expired</td>
+        <%end%>
+  
+      <tr>
+
+<% end %>
+</table>
+
+<div class="add">
+<%= link_to new_list_path  do%>
+        <button type="button" class="btn btn-default btn-sm">
+          <span class="glyphicon glyphicon-plus"></span> New Challenge
+        </button>
+        <% end %>
+</div>
